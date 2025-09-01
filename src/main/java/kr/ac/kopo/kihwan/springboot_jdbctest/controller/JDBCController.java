@@ -6,10 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +43,14 @@ public class JDBCController {
 //        int resultCount = jdbcTemplate.update(sql, params);
         jdbcTemplate.update(sql, params);
         return "redirect:/exam01";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editMethod(@PathVariable("id") int id, Model model) {
+        String sql = "select * from person where id = ?";
+        Person person = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Person.class), id);
+        model.addAttribute("person", person);
+        return "viewPage01_edit";
     }
 
 }
