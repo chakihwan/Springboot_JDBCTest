@@ -7,9 +7,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/exam01")
@@ -24,4 +27,25 @@ public class JDBCController {
         model.addAttribute("personList", personList);
         return "viewPage01";
     }
+
+    @GetMapping("/new")
+    public String newMethod(Model model) {
+        Person person = new Person();
+        model.addAttribute("person", person);
+        return "viewPage01_new";
+    }
+
+    @PostMapping("/insert")
+    public String insertMethod(@ModelAttribute Person person) {
+        String sql = "insert into person(name, age, email) values(?,?,?)";
+//        방법1
+//        jdbcTemplate.update(sql,  person.getName(), person.getAge(), person.getEmail());
+
+//        방법2
+        Object[] params = {person.getName(), person.getAge(), person.getEmail()};
+//        int resultCount = jdbcTemplate.update(sql, params);
+        jdbcTemplate.update(sql, params);
+        return "redirect:/exam01";
+    }
+
 }
