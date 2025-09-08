@@ -6,7 +6,7 @@
 </head>
 <body>
     <div align="center">
-        <h3>JDBC SpringbootDB Test</h3>
+        <h3>JPA SpringbootDB</h3>
         <a th:href="@{/exam01/new}">Add Person Data</a>
         <br><br>
         <table border="1" cellpadding="10">
@@ -23,8 +23,8 @@
                 <td th:text="${person.age}"></td>
                 <td th:text="${person.email}"></td>
                 <td>
-                    <a th:href="@{'/exam01/edit/' + ${person.id}}">Edit</a>&nbsp;&nbsp;&nbsp;
-                    <a th:href="@{'/exam01/delete/' + ${person.id}}">Delete</a>
+                    <a th:href="@{'/exam03/edit/' + ${person.id}}">Edit</a>&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/exam03/delete/' + ${person.id}}">Delete</a>
                 </td>
             </tr>
         </table>
